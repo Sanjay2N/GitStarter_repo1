@@ -1,0 +1,61 @@
+<script>
+
+    console.log("Person1 :shos ticket");
+    console.log("Person2 :shos ticket");
+    const premovie=async()=>{
+
+        const promiseTicket=new Promise((resolve ,reject)=>{
+        setTimeout(() => {
+            
+            resolve("ticker");
+        }, 3000);
+    })
+    let ticket=await promiseTicket;
+    console.log("Wife:I have ticket")
+    console.log("husband :we Should get in")
+    console.log("wife :I want pop corn");
+
+
+    const getpopCorn=promiseTicket.then((t)=>{
+        
+        return new Promise((resolve,reject)=>{
+            resolve(`${t} popcorn`);
+        })
+    })
+
+    let popcorn=await getpopCorn;
+    console.log("Husband :here is popcorn for u")
+    console.log("Wife:tx ,but i want butter");
+    
+    
+    const getButter=getpopCorn.then((t)=>{
+        
+        return new Promise((resolve,reject)=>{
+            resolve(`${t} butter`);
+        })
+    })
+
+    let butter=await getButter;
+    console.log("Husband: here is your butter");
+    console.log("Wife:i wants to drink cool drink if u get it for me ")
+
+    const getDrink=getButter.then((t)=>{
+        
+        return new Promise((resolve,reject)=>{
+            resolve(`${t} drink`);
+        })
+    })
+
+    let drink=await getDrink;
+    console.log("i bought drink for u")
+
+    return drink;
+
+    
+
+    }
+    console.log(premovie());
+    console.log("Person4 :shos ticket");
+    console.log("Person5 :shos ticket");
+    console.log("Person6 :shos ticket");
+</script>
