@@ -16,19 +16,23 @@ myform.addEventListener("submit",function(e){
         name:Name.value,
         email:Email.value
     };
+    
     // localStorage.setItem(Email.value,JSON.stringify(myobj));
    axios.post('https://crudcrud.com/api/be72283d02e448749dfdcebf1c38fc7c/appointment',myobj
-   ).then(response=>console.log(response.data))
+   ).then(response=>{
+    li.classList.add(response.data._id);
+    console.log(response.data)})
    .catch(err=>console.log(err));
 
-    var li=document.createElement('li');
-    
+   
+   var li=document.createElement('li');
     li.className="list-group-item "+Email.value;
 
     li.appendChild(document.createTextNode(Name.value+" - " +Email.value));
 
     
     var delbutton=document.createElement('button');
+    
 
     delbutton.className="btn btn-danger btn-sm float-right delete";
 
@@ -55,10 +59,10 @@ function removeItem(e){
     if(e.target.classList.contains('delete')){
         if(confirm("are you sure")){
             var li=e.target.parentElement;
-            // console.log(li.classList[1])
+            
+            console.log(li.classList[4]);
+            axios.delete("https://crudcrud.com/api/be72283d02e448749dfdcebf1c38fc7c/appointment/"+li.classList[4]).then(res=>console.log(res))
             list.removeChild(li);
-            localStorage.removeItem(li.classList[1]);
-
         }
     }
 }
@@ -92,7 +96,7 @@ function editItem(e){
     }
 }
 
-window.addEventListener("load",reloadItem);
+window.addEventListener("DOMContentLoaded",reloadItem);
 
 function reloadItem(e){
     e.preventDefault();
@@ -101,7 +105,7 @@ function reloadItem(e){
     for(let i=0;i<res.data.length;i++){
         showDataOnScreen(res.data[i]);
     }
-    }).catch(err=>null));
+    }).catch(err=>console.log(err)));
     
     
 }
@@ -112,7 +116,7 @@ function showDataOnScreen(myobj){
     console.log(myobj)
     var li=document.createElement('li');
 
-    li.className="list-group-item d-flex justify-content-between align-items-center ";
+    li.className="list-group-item d-flex justify-content-between align-items-center "+myobj._id;
 
     li.appendChild(document.createTextNode(myobj.name+"  -  " +myobj.email));
 
